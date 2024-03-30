@@ -3,19 +3,20 @@ server:
 
 spring:
   application:
-    name: @artifactId@
+    name: gateway-service
   cloud:
-    discovery:
-      locator:
-        enabled: true
-        lower-case-service-id: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
       routes:
-        - id: product-client
-          uri: lb://product-client
-          filters:
-            - StripPrefix=1
-          predicates:
-            - Path=/product/**
+          - id: product-client
+            uri: lb://product-client
+            filters:
+              - StripPrefix=1
+            predicates:
+              - Path=/product/**
 eureka:
   instance:
     prefer-ip-address: false
@@ -23,4 +24,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defualtZone: http://127.0.0.1:8888/eureka
+      defaultZone: http://localhost:8888/eureka
+
+
