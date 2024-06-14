@@ -3,9 +3,7 @@ server:
 
 spring:
   application:
-    name: @artifacId@
-  profiles:
-    active: k8s
+    name: gateway-service
   cloud:
     gateway:
       discovery:
@@ -19,19 +17,13 @@ spring:
               - StripPrefix=1
             predicates:
               - Path=/product/**
-          - id: user-service
-            uri: lb://user-service
-            filters:
-              - StripPrefix=1
-            predicates:
-              - Path=/user/**
 eureka:
   instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: false
   client:
     register-with-eureka: true
     fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
 
 

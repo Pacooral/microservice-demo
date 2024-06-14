@@ -1,23 +1,34 @@
 server:
   port: 8888
 spring:
+  profiles:
+    active: k8s
   application:
-    name: eureka-server
+    name: @artifactId@
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: product-client
+          uri: lb://product-client
+          filters:
+            - StripPrefix=1
+          predicates:
+            - Path=/product/**
+        - id: user-service
+          uri: lb://user-service
+          filters:
+            - StripPrefix=1
+          predicates:
+            - Path=/user/**
 eureka:
   instance:
-    hostname: 127.0.0.1
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 30
-    lease-expiration-duration-in-seconds: 90
-  server:
-    enable-self-preservation: false
-    eviction-interval-timer-in-ms: 4000
-    wait-time-in-ms-when-sync-empty: 0
-    responseCacheUpdateIntervalMs: 1
-    use-read-only-response-cache: false
-    renewal-percent-threshold: 0.49
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 15
   client:
     register-with-eureka: true
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-    fetch-registry: false
+    fetch-registry: true

@@ -1,8 +1,6 @@
 server:
   port: 8018
 spring:
-  profiles:
-    active: k8s
   application:
     name: product-client
 ribbon:
@@ -10,9 +8,7 @@ ribbon:
     enabled: true
 eureka:
   instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: false
   client:
     register-with-eureka: true
     fetch-registry: true

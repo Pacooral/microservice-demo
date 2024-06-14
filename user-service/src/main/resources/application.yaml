@@ -1,0 +1,10 @@
+server:
+  port: 8013
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user-service
+
+
+

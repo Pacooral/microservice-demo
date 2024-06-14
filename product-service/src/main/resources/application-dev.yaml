@@ -3,8 +3,11 @@ server:
 spring:
   application:
     name: product-service
-  profiles:
-    active: k8s
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/tb_product?characterEndcoding=utf-8&useSSL=false
+    username: root
+    password: likeTuhua1314
+    driver-class-name: com.mysql.jdbc.Driver
 
 
 eureka:
